@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Favorites } from './pages/Favorites';
 import { Footer } from './components/Footer';
+import { SearchFilms } from './pages/SearchFilms';
 
 function App() {
 	return (
@@ -10,6 +11,7 @@ function App() {
 			<NavBar />
 			<Routes>
 				<Route path='/' element={<Home />} />
+				<Route path='/filter' element={<SearchFilms />} />
 				<Route
 					path='*'
 					element={

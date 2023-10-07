@@ -1,8 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../redux/store';
+import { useState } from 'react';
 
 export function NavBar() {
+	const navigate = useNavigate();
 	const favorites = useAppSelector((state) => state.favorites);
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const handleSearch = () => {
+		if (searchTerm) {
+			navigate(`filter?keyword=${searchTerm}`);
+		}
+	};
+
+	// handle search keypress
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			handleSearch();
+		}
+	};
 
 	return (
 		<header className='fixed z-10 w-full bg-gradient-to-t from-transparent via-grayTransparent via-60% to-gray text-primary'>
@@ -15,8 +31,14 @@ export function NavBar() {
 						className='flex-1 mr-2 text-sm text-white bg-transparent outline-none '
 						type='text'
 						placeholder='Rick and Mort...'
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
+						onKeyUp={handleKeyDown}
 					/>
-					<i className='text-xl cursor-pointer fa-solid fa-magnifying-glass'></i>
+					<i
+						onClick={handleSearch}
+						className='text-xl cursor-pointer fa-solid fa-magnifying-glass'
+					></i>
 				</div>
 				<Link to='/favorites' className='transition-all hover:scale-110'>
 					{favorites.length > 0 ? (
