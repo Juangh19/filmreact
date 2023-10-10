@@ -32,7 +32,11 @@ export function NavBar() {
 						type='text'
 						placeholder='Rick and Mort...'
 						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
+						onChange={(e) => {
+							if (e.target.value.length <= 40) {
+								setSearchTerm(e.target.value);
+							}
+						}}
 						onKeyUp={handleKeyDown}
 					/>
 					<i

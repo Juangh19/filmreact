@@ -30,9 +30,21 @@ export function FilmCard({ film }: { film: Movie | TVShow }) {
 	}
 
 	if ('release_date' in film) {
-		releaseDate = film.release_date.slice(0, 4);
+		if (film.release_date) {
+			// Verifica que release_date exista y no sea una cadena vacía
+			releaseDate = film.release_date.slice(0, 4);
+		} else {
+			// Si release_date está presente pero es una cadena vacía, puedes manejarlo aquí
+			releaseDate = '';
+		}
 	} else {
-		releaseDate = film.first_air_date.slice(0, 4);
+		if (film.first_air_date) {
+			// Verifica que first_air_date exista y no sea una cadena vacía
+			releaseDate = film.first_air_date.slice(0, 4);
+		} else {
+			// Si first_air_date está presente pero es una cadena vacía, puedes manejarlo aquí
+			releaseDate = '';
+		}
 	}
 
 	return (
@@ -63,15 +75,17 @@ export function FilmCard({ film }: { film: Movie | TVShow }) {
 						More info
 					</div>
 				</div>
-				<img
-					className='w-full rounded-xl '
-					src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
-				/>
+				<div className='aspect-[2/3] '>
+					<img
+						className='w-full rounded-xl '
+						src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
+					/>
+				</div>
 			</div>
 
 			<div className='flex justify-center gap-2 text-xs opacity-60 bg-[#1a1c23] rounded-full mt-2 mb-1'>
-				<span>Movie</span>
-				<span>{releaseDate}</span>
+				<span>{'title' in film ? 'Movie' : 'TV Show'}</span>
+				{releaseDate && <span>{releaseDate}</span>}
 			</div>
 			<span className='text-sm'>{title}</span>
 		</div>

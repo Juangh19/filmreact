@@ -14,8 +14,6 @@ export function Hero() {
 	const favorites = useAppSelector((state) => state.favorites);
 	const dispatch = useAppDispatch();
 
-	console.log(1);
-
 	if (isLoading) {
 		return <div>Loading...</div>;
 	}
@@ -24,12 +22,9 @@ export function Hero() {
 		return <div>Error</div>;
 	}
 
-	const heroMovie =
-		popularMovies[Math.floor(Math.random() * popularMovies.length - 1)];
+	const heroMovie = popularMovies[0];
 
 	const heroMovieGenres = convertGenres(heroMovie.genre_ids);
-
-	console.log(heroMovie);
 
 	return (
 		<>
